@@ -5,7 +5,6 @@ using ConcursoNestleWeb.Models;
 
 namespace ConcursoNestleWeb.Controllers
 {
-    // Asegúrate de que el controlador MVC esté configurado para recibir las solicitudes en la ruta correcta
     [Route("api/[controller]")]
     [ApiController]
     public class BloqueoDesbloqueoController : ControllerBase
@@ -18,27 +17,37 @@ namespace ConcursoNestleWeb.Controllers
         }
 
         // POST: api/BloqueoDesbloqueo/Registrar
-        [HttpPost("Registrar")]
+        [HttpPost]
         public async Task<IActionResult> RegistrarBloqueoDesbloqueo([FromBody] BloqueoDesbloqueoModel model)
         {
-            if (model == null)
-                return BadRequest("Datos inválidos.");
-
-            var bloqueoDesbloqueo = new BloqueoDesbloqueo
+            if (!ModelState.IsValid)  // Validación del modelo
             {
-                NombreEstudiante = model.NombreEstudiante,
-                EsBloqueo = model.EsBloqueo,
-                FechaHora = DateTime.Now
-            };
+                return BadRequest(ModelState);
+            }
 
-            _context.BloqueoDesbloqueo.Add(bloqueoDesbloqueo);
-            await _context.SaveChangesAsync();
+            try
+            {
+                // Crear la entidad para registrar el bloqueo/desbloqueo
+                var bloqueoDesbloqueo = new BloqueoDesbloqueo
+                {
+                    NombreEstudiante = model.NombreEstudiante,
+                    EsBloqueo = model.EsBloqueo,
+                    FechaHora = DateTime.Now
+                };
 
-            return Ok("Registro exitoso.");
+                // Guardar en la base de datos
+                _context.BloqueoDesbloqueo.Add(bloqueoDesbloqueo);
+                await _context.SaveChangesAsync();
+
+                return Ok(new { message = "Registro exitoso", bloqueoDesbloqueo });
+            }
+            catch (Exception ex)
+            {
+                // Manejo de errores
+                return StatusCode(500, $"Error al guardar los datos: {ex.Message}");
+            }
         }
     }
-
-}
 }
 
 
