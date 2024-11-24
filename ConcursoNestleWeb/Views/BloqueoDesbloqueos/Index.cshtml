@@ -1,0 +1,24 @@
+﻿@model IEnumerable<ConcursoNestleWeb.Models.BloqueoDesbloqueo>
+
+<h1>Información de Bloqueo y Desbloqueo</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre Estudiante</th>
+            <th>Fecha y Hora</th>
+            <th>Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.NombreEstudiante</td>
+                <td>@item.FechaHora</td>
+                <td>@(item.EsBloqueo ? "Bloqueado" : "Desbloqueado")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
