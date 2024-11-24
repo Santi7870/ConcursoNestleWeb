@@ -2,6 +2,7 @@
 using ConcursoNestleWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 public class BloqueoController : Controller
 {
@@ -35,6 +36,21 @@ public class BloqueoController : Controller
         }
 
         return BadRequest(); // Retornar BadRequest si hay un error en el modelo
+
     }
+
+    // Acción para mostrar los datos registrados
+    [HttpGet]
+    public async Task<IActionResult> MostrarDatos()
+    {
+        // Obtener los registros de la base de datos
+        var registros = await _context.BloqueoDesbloqueo.ToListAsync();
+
+        // Enviar los datos a la vista
+        return View(registros);
+    }
+
+
+
 }
 
