@@ -15,5 +15,7 @@ namespace ConcursoNestleWeb.Data
         }
 
         public DbSet<ConcursoNestleWeb.Models.BloqueoDesbloqueo> BloqueoDesbloqueo { get; set; } = default!;
+        public DbSet<ConcursoNestleWeb.Models.Usuario> Usuarios { get; set; } = default!;
+
     }
 }

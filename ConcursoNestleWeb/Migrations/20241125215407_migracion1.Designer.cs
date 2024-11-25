@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ConcursoNestleWeb.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241124192931_migracion1")]
+    [Migration("20241125215407_migracion1")]
     partial class migracion1
     {
         /// <inheritdoc />
@@ -46,6 +46,33 @@ namespace ConcursoNestleWeb.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("BloqueoDesbloqueo");
+                });
+
+            modelBuilder.Entity("ConcursoNestleWeb.Models.Usuario", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Clave")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Correo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Usuarios");
                 });
 #pragma warning restore 612, 618
         }

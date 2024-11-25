@@ -25,6 +25,21 @@ namespace ConcursoNestleWeb.Migrations
                 {
                     table.PrimaryKey("PK_BloqueoDesbloqueo", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Usuarios",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Correo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Clave = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Usuarios", x => x.Id);
+                });
         }
 
         /// <inheritdoc />
@@ -32,6 +47,9 @@ namespace ConcursoNestleWeb.Migrations
         {
             migrationBuilder.DropTable(
                 name: "BloqueoDesbloqueo");
+
+            migrationBuilder.DropTable(
+                name: "Usuarios");
         }
     }
 }

@@ -1,0 +1,30 @@
+﻿@model ConcursoNestleWeb.Models.Usuario
+
+@{
+    ViewData["Title"] = "Registro";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center">Registro</h2>
+    <form asp-action="Register" method="post" class="mt-4">
+        <div class="form-group">
+            <label for="Nombre">Nombre:</label>
+            <input asp-for="Nombre" class="form-control" placeholder="Ingresa tu nombre" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+        <div class="form-group mt-3">
+            <label for="Correo">Correo:</label>
+            <input asp-for="Correo" class="form-control" type="email" placeholder="Ingresa tu correo" />
+            <span asp-validation-for="Correo" class="text-danger"></span>
+        </div>
+        <div class="form-group mt-3">
+            <label for="Clave">Clave:</label>
+            <input asp-for="Clave" class="form-control" type="password" placeholder="Ingresa una clave segura" />
+            <span asp-validation-for="Clave" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary mt-4">Registrarse</button>
+    </form>
+    <div class="mt-3">
+        <p>¿Ya tienes una cuenta? <a asp-action="Login" asp-controller="Auth">Inicia sesión</a>.</p>
+    </div>
+</div>

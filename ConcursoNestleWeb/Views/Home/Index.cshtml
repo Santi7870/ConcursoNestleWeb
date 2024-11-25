@@ -3,9 +3,14 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Bienvenido</h1>
+    <p>Explora las funcionalidades de tu aplicación.</p>
 
-    <a href="/Bloqueo/MostrarDatos" class="btn btn-primary">Ver Registros</a>
+    <div class="d-flex justify-content-center mt-4">
+        <a asp-action="Register" asp-controller="Auth" class="btn btn-success mx-2">Registrarse</a>
+        <a asp-action="Login" asp-controller="Auth" class="btn btn-primary mx-2">Iniciar Sesión</a>
+    </div>
+
 
 </div>
+
