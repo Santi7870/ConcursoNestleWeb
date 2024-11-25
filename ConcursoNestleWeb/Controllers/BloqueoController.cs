@@ -41,15 +41,36 @@ public class BloqueoController : Controller
 
     // Acción para mostrar los datos registrados
     [HttpGet]
-    public async Task<IActionResult> MostrarDatos()
+    public async Task<IActionResult> MostrarDatos(string searchName, bool? isBloqueo)
     {
-        // Obtener los registros de la base de datos
-        var registros = await _context.BloqueoDesbloqueo.ToListAsync();
+        // Filtrar los registros según los parámetros de búsqueda
+        var registros = _context.BloqueoDesbloqueo.AsQueryable();
 
-        // Enviar los datos a la vista
-        return View(registros);
+        // Filtrar por nombre si se proporciona
+        if (!string.IsNullOrEmpty(searchName))
+        {
+            registros = registros.Where(r => r.NombreEstudiante.Contains(searchName));
+        }
+
+        // Filtrar por tipo de bloqueo si se proporciona
+        if (isBloqueo.HasValue)
+        {
+            registros = registros.Where(r => r.EsBloqueo == isBloqueo.Value);
+        }
+
+        // Obtener los resultados filtrados
+        var resultado = await registros.ToListAsync();
+
+        // Pasar los datos de búsqueda a la vista (el modelo ahora contiene los registros y los filtros)
+        var model = new MostrarDatosViewModel
+        {
+            Registros = resultado,
+            SearchName = searchName,
+            IsBloqueo = isBloqueo
+        };
+
+        return View(model);
     }
-
 
 
 }

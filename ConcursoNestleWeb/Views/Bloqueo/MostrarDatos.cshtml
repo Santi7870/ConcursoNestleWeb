@@ -1,7 +1,33 @@
-﻿@model IEnumerable<ConcursoNestleWeb.Models.BloqueoDesbloqueo>
+﻿@model ConcursoNestleWeb.Models.MostrarDatosViewModel
 
 <h2>Lista de Bloqueos y Desbloqueos</h2>
 
+<!-- Formulario de filtro -->
+<form method="get" action="/Bloqueo/MostrarDatos">
+    <div class="form-group">
+        <label for="searchName">Filtrar por Nombre:</label>
+        <input type="text" name="searchName" id="searchName" class="form-control" value="@Model.SearchName" placeholder="Ingrese nombre del estudiante" />
+    </div>
+
+    <div class="form-group">
+        <label>Filtrar por Tipo:</label>
+        <div>
+            <label for="bloqueo" class="mr-2">
+                <input type="radio" name="isBloqueo" value="true" @(Model.IsBloqueo == true ? "checked" : "") /> Bloqueo
+            </label>
+            <label for="desbloqueo">
+                <input type="radio" name="isBloqueo" value="false" @(Model.IsBloqueo == false ? "checked" : "") /> Desbloqueo
+            </label>
+            <label for="todos">
+                <input type="radio" name="isBloqueo" value="" @(Model.IsBloqueo == null ? "checked" : "") /> Todos
+            </label>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Aplicar Filtro</button>
+</form>
+
+<!-- Mostrar los datos filtrados -->
 <table class="table table-striped">
     <thead>
         <tr>
@@ -12,7 +38,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Registros)
         {
             <tr>
                 <td>@item.Id</td>
@@ -23,4 +49,3 @@
         }
     </tbody>
 </table>
-
